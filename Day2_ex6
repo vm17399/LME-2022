@@ -1,0 +1,38 @@
+llfunc <- function(b1){
+  
+  # assign parameters
+ 
+  a <- 261.87818
+  
+  b2 <-  0.08306
+  
+  # specify the linear model
+
+  x <- women$height
+  
+  y <- women$weight
+  
+  # evaluate log-likelihood for observations under this model
+  
+  sum <- (y - (a + b1*x + b2*x*x))^2
+  
+  tot <- sum(sum)
+  
+  # sum them up
+  
+  ll <- -15*log(0.3841) - 15/2*log(2*pi)- 1/(2*0.3841^2)*tot
+  
+  return(ll) 
+}
+
+liss <- mapply(llfunc, seq(-40, 40, by = 0.001))
+
+value <- which.max(liss)
+
+b1 <- (- 40000 + value)/1000
+
+b1
+
+b_1 <- seq(-40,40, by = 0.001)
+
+plot(liss ~ b_1)
